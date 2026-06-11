@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RepoBrainFleet",
+  "type": "object",
+  "required": ["generatedAt", "repos"],
+  "properties": {
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "repos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["repo", "status", "reason", "timestamp"],
+        "properties": {
+          "repo": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["GREEN", "AUTO_FIXABLE", "RED"]
+          },
+          "reason": { "type": "string" },
+          "framework": { "type": "string" },
+          "languages": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "ci": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

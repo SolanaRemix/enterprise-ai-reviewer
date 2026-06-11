@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RepoBrainDiagnosis",
+  "type": "object",
+  "required": ["repo", "status", "reason", "languages", "framework", "ci", "timestamp"],
+  "properties": {
+    "repo": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["GREEN", "AUTO_FIXABLE", "RED"]
+    },
+    "reason": { "type": "string" },
+    "languages": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "framework": {
+      "type": "string",
+      "enum": [
+        "none",
+        "next",
+        "react",
+        "sveltekit",
+        "nuxt",
+        "astro",
+        "remix",
+        "vue",
+        "svelte",
+        "angular"
+      ]
+    },
+    "ci": {
+      "type": "string",
+      "enum": ["github-actions", "none"]
+    },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

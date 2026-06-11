@@ -1,0 +1,11 @@
+{
+  "repo": "Repo-Doctor",
+  "status": "RED",
+  "reason": "AI Guard flagged unsafe patterns or secrets.",
+  "languages": [
+  "node"
+],
+  "framework": "none",
+  "ci": "github-actions",
+  "timestamp": "2026-02-01T01:30:27Z"
+}

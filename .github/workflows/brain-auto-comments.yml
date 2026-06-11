@@ -1,0 +1,47 @@
+name: Repo Brain Auto-Comments
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  brain-auto-comments:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run repo brain
+        run: |
+          if [ -x .repo-brain/brain.run.sh ]; then
+            ./.repo-brain/brain.run.sh || true
+          else
+            echo "No .repo-brain present"
+          fi
+
+      - name: Post auto-comments
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ ! -d .repo-brain/auto-comments ]; then
+            echo "No auto-comments directory"
+            exit 0
+          fi
+
+          for f in .repo-brain/auto-comments/*.md; do
+            [ -f "$f" ] || continue
+            body=$(cat "$f")
+            jq -n --arg body "$body" \
+              '{body: $body}' > comment.json
+
+            curl -sS -X POST \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/issues/${{ github.event.pull_request.number }}/comments" \
+              -d @comment.json
+          done

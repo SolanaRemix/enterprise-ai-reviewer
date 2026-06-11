@@ -1,0 +1,8 @@
+{
+  "name": "REPO BRAIN HOSPITAL V2 - CyberAI Oracle",
+  "description": "The definitive autonomous repository governance engine. Features the SmartBrain Oracle, Neural Bridge Grafting, and MERMEDA v2.0 compliance auditing for Web3, Nuxt, and Angular ecosystems.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

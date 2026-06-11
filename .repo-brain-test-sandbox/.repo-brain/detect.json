@@ -1,0 +1,8 @@
+{
+  "languages": [
+    "node"
+  ],
+  "framework": "none",
+  "ci": "github-actions",
+  "detected_at": "2026-02-01T01:30:27Z"
+}

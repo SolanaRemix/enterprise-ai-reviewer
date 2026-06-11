@@ -1,0 +1,48 @@
+name: Repo-Brain Doctor & Surgeon
+
+on:
+  push:
+    paths:
+      - ".repo-brain/**"
+      - ".repo-brain.versions/**"
+  workflow_dispatch:
+
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Brain Doctor
+        run: |
+          if [ -x .repo-brain/brain.doctor.sh ]; then
+            ./.repo-brain/brain.doctor.sh || true
+          fi
+
+      - name: Upload Doctor Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: brain-health
+          path: |
+            .repo-brain/brain.health.json
+            .repo-brain/brain.health.md
+
+  surgeon:
+    needs: doctor
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Auto-Repair (Surgeon)
+        run: |
+          if [ -x .repo-brain/brain.surgeon.sh ]; then
+            ./.repo-brain/brain.surgeon.sh v1.1.0 || true
+          fi
+
+      - name: Upload Surgeon Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: brain-surgeon
+          path: |
+            .repo-brain/.repo-brain.backup.*
