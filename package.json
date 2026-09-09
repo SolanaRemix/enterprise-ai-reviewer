@@ -19,7 +19,7 @@
     "@vitejs/plugin-react": "^5.2.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "lucide-react": "^0.378.0",
+    "lucide-react": "^1.43.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "recharts": "^2.12.0",
